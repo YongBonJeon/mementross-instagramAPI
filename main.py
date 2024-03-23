@@ -15,13 +15,17 @@ async def login(tag: str, count: int):
     images = {}
     idx = 1
     for media in medias:
-        for res in media.resources:
-            images[idx] = res.thumbnail_url
+        print(media.resources)
+        if not media.resources:
+            images[idx] = media.thumbnail_url
             idx += 1
-            print(idx)
-            if idx == count:
-                break
-        if idx == count:
+        else:
+            for res in media.resources:
+                images[idx] = res.thumbnail_url
+                idx += 1
+                if idx > count:
+                    break
+        if idx > count:
             break
 
     return images

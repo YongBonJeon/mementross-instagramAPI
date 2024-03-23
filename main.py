@@ -13,12 +13,15 @@ async def login(tag: str, count: int):
     medias = cl.user_medias(user_id, count)
 
     images = {}
-    for idx, media in enumerate(medias):
-        images[idx] = media.thumbnail_url
+    idx = 1
+    for media in medias:
+        for res in media.resources:
+            images[idx] = res.thumbnail_url
+            idx += 1
+            print(idx)
+            if idx == count:
+                break
+        if idx == count:
+            break
 
-    return images;
-
-
-@app.get("/get_user_info")
-async def get_user_info():
-    return cl.user_info
+    return images

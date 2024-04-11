@@ -31,7 +31,9 @@ async def getImages(tag: str, count: int):
 
 @app.get("/posts")
 async def getPosts(tag: str, count: int):
-    user_id = cl.user_id_from_username(tag)
+    #user_id = cl.user_id_from_username(tag)
+    user_info = cl.user_info_by_username_v1(tag)
+    user_id = user_info.pk
     medias = cl.user_medias(user_id, count)
 
     posts = {}
@@ -56,7 +58,8 @@ async def getPosts(tag: str, count: int):
 
 @app.get("/posts/date")
 async def getPosts(tag: str, date: str, count: int):
-    user_id = cl.user_id_from_username(tag)
+    user_info = cl.user_info_by_username_v1(tag)
+    user_id = user_info.pk
     medias = cl.user_medias(user_id, 20)
 
     criterion_date = datetime.datetime.strptime(date, "%Y-%m-%d")

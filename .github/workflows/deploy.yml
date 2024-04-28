@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: ssh to ec2
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v.0.1.3
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }} # 내가 변수로 저장한 pem key
           host: ${{ secrets.HOST }} # 내가 변수로 저장한 ip

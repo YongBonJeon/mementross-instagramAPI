@@ -28,6 +28,8 @@ def read_member(member_insta_username: str, db: Session = Depends(get_db)):
     return db_member
 
 
+
+
 def update_member(db: Session, member_insta_username: str, member_insta_posting: str):
     db_member = crud.get_member(db, member_insta_username=member_insta_username)
     if db_member is None:

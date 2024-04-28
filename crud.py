@@ -6,3 +6,4 @@ def get_member(db: Session, member_insta_username: int):
 
 def get_memberById(db: Session, member_id: int):
     return db.query(Member).filter(Member.member_id == member_id).first()
+

@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  SSH:
+  build:
     runs-on: ubuntu-latest
 
     steps:

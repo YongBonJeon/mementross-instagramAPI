@@ -66,7 +66,7 @@ def generate(keywords: Item):
     )
 
 
-    return response.choices[0].message
+    return response.choices[0].message.content
 
 
 @app.get("/members/{member_insta_username}")
@@ -123,16 +123,15 @@ async def getPosts(tag: str, count: int, db: Session = Depends(get_db)):
     posts = {}
     totalimages = {}
     post_idx = 1
-    image_idx = 1
     for media in medias:
         post = {}
         post["caption"] = media.caption_text
         post["date"] = media.taken_at
         images = {}
+        image_idx = 1
         if not media.resources:
             images[1] = media.thumbnail_url
             totalimages[image_idx] = media.thumbnail_url
-            image_idx += 1
         else:
             for res in media.resources:
                 images[image_idx] = res.thumbnail_url
@@ -143,13 +142,13 @@ async def getPosts(tag: str, count: int, db: Session = Depends(get_db)):
         post_idx += 1
 
     urls_str = {k: str(v) for k, v in totalimages.items()}
-    JSON = json.dumps(urls_str)
-    db_member = crud.get_member(db, member_insta_username=tag)
-    if db_member is None:
-        raise HTTPException(status_code=404, detail="Member not found")
-    db_member.member_insta_posting = JSON
-    db.commit()
-    print(db_member.member_insta_posting)
+    #JSON = json.dumps(urls_str)
+    #db_member = crud.get_member(db, member_insta_username=tag)
+    #if db_member is None:
+    #    raise HTTPException(status_code=404, detail="Member not found")
+    #db_member.member_insta_posting = JSON
+    #db.commit()
+    #print(db_member.member_insta_posting)
 
     return posts
 
